@@ -120,10 +120,20 @@ func (s *Session) sendRecipes() {
 		networkID := uint32(index) + 1
 		s.recipes[networkID] = i
 
+		var recipeID string
+		if len(i.Output()) > 0 {
+			if name, _ := i.Output()[0].Item().EncodeItem(); name != "" {
+				recipeID = name + "_" + uuid.New().String()[:8]
+			}
+		}
+		if recipeID == "" {
+			recipeID = uuid.New().String()
+		}
+
 		switch i := i.(type) {
 		case recipe.Shapeless:
 			recipes = append(recipes, &protocol.ShapelessRecipe{
-				RecipeID:        uuid.New().String(),
+				RecipeID:        recipeID,
 				Priority:        int32(i.Priority()),
 				Input:           stacksToIngredientItems(s.br, i.Input()),
 				Output:          stacksToRecipeStacks(s.br, i.Output()),
@@ -133,7 +143,7 @@ func (s *Session) sendRecipes() {
 			})
 		case recipe.Shaped:
 			recipes = append(recipes, &protocol.ShapedRecipe{
-				RecipeID:        uuid.New().String(),
+				RecipeID:        recipeID,
 				Priority:        int32(i.Priority()),
 				Width:           int32(i.Shape().Width()),
 				Height:          int32(i.Shape().Height()),
