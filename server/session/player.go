@@ -128,6 +128,7 @@ func (s *Session) sendRecipes() {
 				Input:           stacksToIngredientItems(s.br, i.Input()),
 				Output:          stacksToRecipeStacks(s.br, i.Output()),
 				Block:           i.Block(),
+				UnlockRequirement: protocol.RecipeUnlockRequirement{Context: protocol.RecipeUnlockContextAlwaysUnlocked},
 				RecipeNetworkID: networkID,
 			})
 		case recipe.Shaped:
@@ -139,6 +140,7 @@ func (s *Session) sendRecipes() {
 				Input:           stacksToIngredientItems(s.br, i.Input()),
 				Output:          stacksToRecipeStacks(s.br, i.Output()),
 				Block:           i.Block(),
+				UnlockRequirement: protocol.RecipeUnlockRequirement{Context: protocol.RecipeUnlockContextAlwaysUnlocked},
 				RecipeNetworkID: networkID,
 			})
 		case recipe.SmithingTransform:
