@@ -468,7 +468,7 @@ func (srv *Server) defaultGameData() minecraft.GameData {
 		BaseGameVersion: protocol.CurrentVersion,
 
 		Time:       int64(srv.world.Time()),
-		Difficulty: 2,
+		Difficulty: 3, // Patch: force difficulty to Hard (3) on client
 
 		PlayerGameMode:    int32(gm),
 		PlayerPermissions: packet.PermissionLevelMember,
@@ -479,6 +479,7 @@ func (srv *Server) defaultGameData() minecraft.GameData {
 		GameRules: []protocol.GameRule{
 			{Name: "naturalregeneration", Value: false},
 			{Name: "locatorBar", Value: false},
+			{Name: "showdaysplayed", Value: true}, // Patch: enable days played
 		},
 
 		ServerAuthoritativeInventory: true,
