@@ -480,6 +480,7 @@ func (srv *Server) defaultGameData() minecraft.GameData {
 			{Name: "naturalregeneration", Value: false},
 			{Name: "locatorBar", Value: false},
 			{Name: "showdaysplayed", Value: true}, // Patch: enable days played
+			{Name: "recipesunlock", Value: false}, // Patch: disable recipe locking so all categories appear
 		},
 
 		ServerAuthoritativeInventory: true,

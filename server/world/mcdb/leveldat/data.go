@@ -209,6 +209,7 @@ func (d *Data) FillDefault() {
 	d.RainLevel = 1.0
 	d.RandomSeed = time.Now().Unix()
 	d.RandomTickSpeed = 1
+	d.RecipesUnlock = false // Patch: matikan fitur unlock recipe
 	d.RespawnBlocksExplode = true
 	d.SendCommandFeedback = true
 	d.ServerChunkTickRange = 4 // Patch: Reduce from 6 to 4 for better ping/tick performance
