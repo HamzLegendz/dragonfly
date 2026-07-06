@@ -214,6 +214,7 @@ func (d *Data) FillDefault() {
 	d.ServerChunkTickRange = 4 // Patch: Reduce from 6 to 4 for better ping/tick performance
 	d.ShowBorderEffect = true
 	d.ShowCoordinates = true  // Patch: tampilkan koordinat XYZ by default
+	d.ShowDaysPlayed = true   // Patch: tampilkan jumlah hari dimainkan
 	d.ShowDeathMessages = true
 	d.ShowTags = true
 	d.SpawnMobs = true
