@@ -89,12 +89,28 @@ func init() {
 	}
 }
 
+// UnknownItem represents a vanilla item that has no Go implementation yet.
+type UnknownItem struct {
+	name string
+	meta int16
+}
+
+func (u UnknownItem) EncodeItem() (string, int16) { return u.name, u.meta }
+func (UnknownItem) MaxCount() int { return 64 }
+
 // ItemByName attempts to return an item by a name and a metadata value.
 func ItemByName(name string, meta int16) (Item, bool) {
 	it, ok := items[itemHash{name: name, meta: meta}]
 	if !ok {
 		// Also try obtaining the item with a metadata value of 0, for cases with durability.
 		it, ok = items[itemHash{name: name}]
+	}
+	if !ok {
+		// Patch: if the item is in vanilla_items.nbt but lacks a struct, return a dummy item!
+		// This fixes crafting for missing vanilla items like shield, boats, etc.
+		if _, known := itemNamesToRuntimeIDs[name]; known {
+			return UnknownItem{name: name, meta: meta}, true
+		}
 	}
 	return it, ok
 }
